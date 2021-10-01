@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>People in Space</title>
+    <meta name="description" content="See who is in space!">
+    <meta name="author" content="Gabriel Rasskin">
+    <meta name="keywords" content="Space, Astronauts">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="robots" content="index, follow" />
+
+    <!-- CSS / Favicon -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container text-center mt-5 mb-2">
+    <h1 class="mb-0">Meet our Astronauts</h1><span>In space, nobody can hear you code</span>
+</div>
+    <div class="container mt-3">
+        <div class="row" id="astronauts">            
+        </div>
+    </div>
+    <script>
+        window.onload = () => {
+            fetch('/api').then(data => data.json()).then(astronauts => {
+                console.log(astronauts);
+                for (astro in astronauts) {
+                    astronaut = astronauts[astro];
+                    document.getElementById("astronauts").innerHTML += 
+                `<div class="col-md-3">
+                    <div class="bg-white p-3 text-center rounded box"><img class="img-responsive rounded-circle" src="${astronaut.image}" width="90">
+                        <a href=${astronaut.url}><h5 class="mt-3 name">${astronaut.name}</h5></a>
+                        <span class="work d-block">${astronaut.craft}</span>
+                        <div class="mt-4 about"><span>${astronaut.description}</span></div>
+                    </div>
+                </div>`
+                }
+            })
+        }
+    </script>
+</body>
